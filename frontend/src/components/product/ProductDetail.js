@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import * as api from '../../api/products';
 import CartContext from '../cartContext';
 import { useSelector } from 'react-redux';
+import Metadata from "../layout/Metadata";
 
 
 const ProductDetail = () => {
@@ -105,6 +106,7 @@ const ProductDetail = () => {
         product &&
         <Fragment>
             <div className="row f-flex justify-content-around">
+            <Metadata title={product.name}/>
                 <div className="col-12 col-lg-5 img-fluid" id="product_image">
                     <Carousel>
 

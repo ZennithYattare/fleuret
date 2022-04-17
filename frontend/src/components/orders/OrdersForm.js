@@ -7,6 +7,7 @@ import { createOrder } from "../../actions/orderActions";
 import axios from "axios";
 import { useAlert } from "react-alert";
 import CartContext from "../cartContext";
+import Metadata from "../layout/Metadata";
 
 function formatDate(date) {
     var d = new Date(date),
@@ -166,6 +167,7 @@ const OrdersForm = () => {
             <Fragment>
                 <div className="container-container-fluid">
                     <div className="row wrapper">
+                    <Metadata title={'Checkout'}/>
                         <div className="col-10 col-lg-5">
                             <Form
                                 className="container mt-2 shadow-lg"

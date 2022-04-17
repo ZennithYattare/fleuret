@@ -3,7 +3,8 @@ import { useAlert } from 'react-alert'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/authActions'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import Metadata from "../layout/Metadata";
 
 const Login = () => {
     const alert = useAlert()
@@ -45,6 +46,7 @@ const Login = () => {
                     
 
                     <div className="row wrapper">
+                    <Metadata title={'Log-in'}/>
                         <div className="col-10 col-lg-5">
                         <div className = "loginBox">
                         

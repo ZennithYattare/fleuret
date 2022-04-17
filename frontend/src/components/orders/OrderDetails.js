@@ -4,6 +4,7 @@ import { useAlert } from "react-alert";
 import { useNavigate, useParams } from "react-router-dom";
 import dateFormat from "dateformat";
 import { Modal } from "react-bootstrap";
+import Metadata from "../layout/Metadata";
 
 const OrderDetails = () => {
     const { id } = useParams();
@@ -79,6 +80,7 @@ const OrderDetails = () => {
         <Fragment>
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
+                <Metadata title={'Invoice'}/>
                     <div className="col-md-8">
                         <div className="card">
                             <div className="invoice p-5">
