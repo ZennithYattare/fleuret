@@ -4,7 +4,7 @@ import Metadata from "../layout/Metadata";
 const Loader = () => {
   return (
     <div className = "loader">
-      <Metadata title={'Loading'}/>
+      <Metadata title={''}/>
     </div>
     
   )

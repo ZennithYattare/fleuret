@@ -7,6 +7,7 @@ import { useAlert } from "react-alert";
 import { removeFromCart, updateQuantity } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 import CartContext from "../cartContext";
+import Metadata from "../layout/Metadata";
 
 const CartList = () => {
   const {
@@ -65,7 +66,9 @@ const CartList = () => {
   return (
     <Fragment>
       <div className="container mt-4" id="cartContainerSize">
+      
         <div className="row justify-content-between ">
+        <Metadata title={'Cart'}/>
           <div className="col-10 col-xl-9 rcart">
             <h2 className="mt-4">SHOPPING CART</h2>
 
