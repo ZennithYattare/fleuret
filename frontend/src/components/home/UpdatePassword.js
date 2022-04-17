@@ -50,6 +50,7 @@ const UpdatePassword = ({ history }) => {
         <Fragment>
         <div className="row wrapper">
             <div className="col-10 col-lg-5">
+            <Metadata title={'Update Password'}/>
                 <form className="shadow-lg" onSubmit={submitHandler}>
                     <h1 className="text-center">New Password</h1>
                     <hr />
