@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import Metadata from "../layout/Metadata";
 const Product = ({ product }) => {
   const image = {
     width: 'auto',
@@ -8,6 +8,7 @@ const Product = ({ product }) => {
 
   return (
     <div className="col-sm-6 col-md-4 " id = "cartContainerSize">
+      <Metadata title={'Catalog'}/>
       <div className="card p-3 rounded shadow-lg" id = "productContainer">
         <div className="photo text-center">
           <img src={product.images[0] && product.images[0].path} alt="Image of design" className="img-fluid" style={image} />
