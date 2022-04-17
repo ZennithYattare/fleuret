@@ -7,6 +7,7 @@ import { clearErrors, register } from '../../actions/authActions'
 import { useNavigate } from "react-router-dom"
 import TermsAndConditions from './TermsAndConditions'
 import PrivacyPolicy from './PrivacyPolicy'
+import Metadata from "../layout/Metadata";
 
 const Register = () => {
     const dispatch = useDispatch()
@@ -69,6 +70,7 @@ const Register = () => {
         <>
             <Fragment>
                 <div className="row wrapper">
+                <Metadata title={'Register'}/>
                     <div className="container d-flex justify-content-center">
                         <div className="col-md-6 col-12  text-left text-white shadow-lg lcol">
                             <div className="greeting">
