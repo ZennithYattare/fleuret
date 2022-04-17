@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loadUser, logout, clearErrors } from '../../actions/authActions'
 import { Link, useNavigate } from "react-router-dom"
 import Logout from "../layout/Logout"
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 
 const Header = () => {
     const dispatch = useDispatch()
 
     const { user } = useSelector(state => state.auth)
 
+    console.log(user)
+    
     return (
         <Fragment>
             {

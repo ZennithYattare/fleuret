@@ -174,7 +174,6 @@ const AdminOrderForm = () => {
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="name">
                                             <Form.Label>Remarks</Form.Label>
-                                            {/* <Form.Control type="text" value={order.description} placeholder="Remarks" onChange={(e) => setOrder({ ...order, description: e.target.value })} /> */}
                                             <textarea placeholder="Enter remarks" value={order.description} className="form-control" id="description_field" onChange={(e) => setOrder({ ...order, description: e.target.value })} rows="4" required></textarea>
                                         </Form.Group>
                                         <Button variant="primary" type="submit">

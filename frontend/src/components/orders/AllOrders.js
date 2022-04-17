@@ -63,7 +63,7 @@ const AllOrders = () => {
                     width: 150
                 },
                 {
-                    label: 'Deliver By',
+                    label: 'Deliver/Ready By',
                     field: 'ship',
                     width: 100
                 },
