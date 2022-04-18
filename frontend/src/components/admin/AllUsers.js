@@ -60,7 +60,7 @@ const AllUsers = () => {
                 {
                     label: 'Name',
                     field: 'name',
-                    width: 250
+                    width: 200
                 },
                 {
                     label: 'Username',
@@ -70,12 +70,12 @@ const AllUsers = () => {
                 {
                     label: 'E-mail',
                     field: 'email',
-                    width: 250,
+                    width: 300,
                 },
                 {
                     label: 'Contact Number',
                     field: 'contact',
-                    width: 250,
+                    width: 200,
                 },
                 {
                     label: 'Role',
@@ -85,7 +85,7 @@ const AllUsers = () => {
                 {
                     label: 'Actions',
                     field: 'actions',
-                    width: 150,
+                    width: 200,
                     sort: 'disabled'
                 }
             ],
@@ -234,9 +234,9 @@ const AllUsers = () => {
                             searchTop
                             searchBottom={false}
                             noBottomColumns={false}
-                            bordered
                             striped
                             fullPagination
+                            scrollX
                             />
                     </div>
                 </div>

@@ -100,7 +100,7 @@ const ArchivedStocks = () => {
                     width: 100,
                 },
                 {
-                    label: 'Acquired Price',
+                    label: 'Acquired',
                     field: 'acquired',
                     width: 100,
                 },
@@ -200,9 +200,9 @@ const ArchivedStocks = () => {
                             searchTop
                             searchBottom={false}
                             noBottomColumns={false}
-                            bordered
                             fullPagination
-                            striped />
+                            striped 
+                            scrollX/>
                     </div>
                 </div>
             </div>

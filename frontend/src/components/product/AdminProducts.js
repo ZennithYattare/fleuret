@@ -43,12 +43,12 @@ const AdminProducts = () => {
                 {
                     label: 'Product ID',
                     field: 'id',
-                    width: 500
+                    width: 300
                 },
                 {
                     label: 'Product Name',
                     field: 'name',
-                    width: 100
+                    width: 150
                 },
                 {
                     label: 'Image',
@@ -59,7 +59,7 @@ const AdminProducts = () => {
                 {
                     label: 'Actions',
                     field: 'actions',
-                    width: 150,
+                    width: 300,
                     sort: 'disabled'
                 }
             ],
@@ -120,6 +120,7 @@ const AdminProducts = () => {
                         searchBottom={false}
                         noBottomColumns={false}
                         striped
+                        scrollX
                     />
                 </div>
             </div>

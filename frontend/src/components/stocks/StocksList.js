@@ -149,9 +149,9 @@ const StocksList = () => {
                             searchTop
                             searchBottom={false}
                             noBottomColumns={false}
-                            bordered
                             striped
                             fullPagination
+                            scrollX
                         />
                     </div>
                 </div>
