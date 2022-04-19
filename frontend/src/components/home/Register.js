@@ -25,6 +25,12 @@ const Register = () => {
     const handleClosePrivacy = () => setShowPrivacy(false);
     const handleShowPrivacy = () => setShowPrivacy(true);
 
+    const [showPassword, setShowPassword] = useState('false')
+    const [showConfirm, setShowConfirm] = useState('false')
+
+    const showPasswordToggle = () => setShowPassword(!showPassword)
+    const showConfirmToggle = () => setShowConfirm(!showConfirm)
+
     const [customer, setCustomer] = useState({
         first_name: "",
         last_name: "",
@@ -152,8 +158,9 @@ const Register = () => {
                                 <small id="formatValidation">Example: 09123456789 or 81237654</small>
                                 <div className="form-group">
                                     <label htmlFor="password_field">Password</label>
+                                    <div className="input-group">
                                     <input
-                                        type="password"
+                                        type={showPassword ? "password" : "showPass"}
                                         name="password"
                                         value={password}
                                         onChange={onChange}
@@ -164,12 +171,21 @@ const Register = () => {
                                         maxlength="20"
                                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?![.\n])(?!.* )(?=.*[!@#$%^&*_=+-]).{8,20}$"
                                     />
+                                    <div className="input-group-addon">
+                                        <div  id = "showPass2" onClick={showPasswordToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                            </div>
                                     <small id="formatValidation">Password must ONLY be 8-20 characters long and contain at least one uppercase and lowercase letter, one number, and one special character.</small>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="ConfirmPassword_field">Confirm Password</label>
+                                    <div className="input-group">
                                     <input
-                                        type="password"
+                                        type={showConfirm ? "password" : "text"}
                                         name="confirmPassword"
                                         value={confirmPassword}
                                         onChange={onChange}
@@ -180,6 +196,14 @@ const Register = () => {
                                         maxlength="20"
                                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?![.\n])(?!.* )(?=.*[!@#$%^&*_=+-]).{8,20}$"
                                     />
+                                    <div className="input-group-addon">
+                                        <div  id = "showPass2" onClick={showConfirmToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                                 </div>
                                 </div>
                                 <hr />
                                 <h4 className="mb-3">Address</h4>

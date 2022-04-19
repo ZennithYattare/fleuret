@@ -1821,6 +1821,26 @@ table.mdb-dataTable thead > tr > th.sorting_asc, table.mdb-dataTable thead > tr 
   border-radius: 5px;
 }
 
+#showPass2 {
+  background-color: transparent;
+  color: #000000;
+  border: 0.5px solid transparent;
+  border-radius: 0px;
+  height: 40px;
+  width: 45px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 8px;
+}
+#showPass2:hover{
+  background-color: #C89595;
+  color: white;
+  border: 0.5px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-radius: 5px;
+}
+
 .showPassClass{
   
 }
