@@ -17,6 +17,11 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const [showPassword, setShowPassword] = useState('false')
+    const [showConfirm, setShowConfirm] = useState('false')
+
+    const showPasswordToggle = () => setShowPassword(!showPassword)
+
     useEffect(() => {
         if (error) {
             alert.error(error)
@@ -68,15 +73,26 @@ const Login = () => {
                             </div>
                 
                             <div className="form-group">
+                            
                             <label htmlFor="password_field">Password</label>
+                            <div className="input-group">
                             <input
                                 required
-                                type="password"
+                                type={showPassword ? "password" : "email"}
                                 id="password_field"
                                 className="form-control"
                                 value={password}
                                 onChange = {(e) => setPassword(e.target.value)}
                             />
+                            <div className="input-group-addon">
+                            <Button variant="secondary" id = "showPass" onClick={showPasswordToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </Button>
+                            </div>
+                            </div>
+                            
                             </div>
 
                             <Link to ="/password/forgot" className="float-right mb-4" id = "linkHover">Forgot Password?</Link>
