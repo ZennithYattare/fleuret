@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect, } from 'react'
 import { useAlert } from 'react-alert'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -84,11 +84,11 @@ const Login = () => {
                                 onChange = {(e) => setPassword(e.target.value)}
                             />
                             <div className="input-group-addon">
-                            <Button variant="secondary" id = "showPass" onClick={showPasswordToggle}>
+                            <div  id = "showPass" onClick={showPasswordToggle}>
                                             <span className="fa-sm">
                                                 <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
                                             </span>
-                                        </Button>
+                                        </div>
                             </div>
                             </div>
                             
