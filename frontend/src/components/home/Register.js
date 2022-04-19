@@ -199,7 +199,7 @@ const Register = () => {
                                     <div className="input-group-addon">
                                         <div  id = "showPass2" onClick={showConfirmToggle}>
                                             <span className="fa-sm">
-                                                <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                                <i className={showConfirm ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
                                             </span>
                                         </div>
                                  </div>
