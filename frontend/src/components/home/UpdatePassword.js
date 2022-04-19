@@ -19,6 +19,14 @@ const UpdatePassword = ({ history }) => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+    const [showOldPassword, setShowOldPassword] = useState('false')
+    const [showPassword, setShowPassword] = useState('false')
+    const [showConfirm, setShowConfirm] = useState('false')
+
+    const showOldPasswordToggle = () => setShowOldPassword(!showOldPassword)
+    const showPasswordToggle = () => setShowPassword(!showPassword)
+    const showConfirmToggle = () => setShowConfirm(!showConfirm)
+
     useEffect(() => {
         if(!user) {
             navigate('/')
@@ -57,40 +65,69 @@ const UpdatePassword = ({ history }) => {
 
                     <div className="form-group">
                         <label for="old_password_field">Old Password</label>
+                        <div className="input-group">
                         <input
-                            type="password" 
+                            type={showOldPassword ? "password" : "showPass"}
                             name="oldPassword" 
                             value={oldPassword} 
                             onChange={e => setOldPassword(e.target.value)} 
                             placeholder="old password"
                             className="form-control"
                         />
+                         <div className="input-group-addon">
+                                        <div  id = "showPass3" onClick={showOldPasswordToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showOldPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                            </div>
                     </div>
 
                     <hr/>
 
                     <div className="form-group">
                         <label for="new_password_field">New Password</label>
+                        <div className="input-group">
                         <input
-                            type="password" 
+                            type={showPassword ? "password" : "showPass"}
                             name="password" 
                             value={password} 
                             onChange={e => setPassword(e.target.value)} 
                             placeholder="password"
                             className="form-control"
                         />
+                        <div className="input-group-addon">
+                                        <div  id = "showPass3" onClick={showPasswordToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                            </div>
+                    
                     </div>
 
                     <div className="form-group">
                         <label for="confirm_password_field">Confirm New Password</label>
+                        <div className="input-group">
                         <input
-                            type="password" 
+                            type={showConfirm ? "password" : "text"}
                             name="confirmPassword" 
                             value={confirmPassword} 
                             onChange={e => setConfirmPassword(e.target.value)} 
                             placeholder="confirm password"
                             className="form-control"
                         />
+                         <div className="input-group-addon">
+                                        <div  id = "showPass3" onClick={showConfirmToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showConfirm ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                                 </div>
+                               
                     </div>
 
                     <hr />
