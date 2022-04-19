@@ -63,7 +63,7 @@ const AllOrders = () => {
                     width: 150
                 },
                 {
-                    label: 'Deliver By',
+                    label: 'Deliver/Ready By',
                     field: 'ship',
                     width: 100
                 },
@@ -75,12 +75,12 @@ const AllOrders = () => {
                 {
                     label: 'Status',
                     field: 'status',
-                    width: 150
+                    width: 100
                 },
                 {
                     label: 'Actions',
                     field: 'actions',
-                    width: 150,
+                    width: 100,
                     sort: 'disabled'
                 }
             ],
@@ -130,10 +130,9 @@ const AllOrders = () => {
                                 searchTop
                                 searchBottom={false}
                                 noBottomColumns={false}
-                                bordered
                                 striped
                                 fullPagination
-                                />
+                                scrollX/>
                         </div>
                     </div>
                 </>

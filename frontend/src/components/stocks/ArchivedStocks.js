@@ -100,7 +100,7 @@ const ArchivedStocks = () => {
                     width: 100,
                 },
                 {
-                    label: 'Acquired Price',
+                    label: 'Acquired',
                     field: 'acquired',
                     width: 100,
                 },
@@ -151,7 +151,7 @@ const ArchivedStocks = () => {
                                 <i class="fa-regular fa-eye fa-xl" title="View Stock"></i>
                             </Link> */}
                             {/* <div style={divTest}></div> */}
-                            <button className="btn fa-solid fa-arrow-rotate-left fa-xl" title="Restore Stock" onClick={() => restoreStock(stock._id)}></button>
+                            <button className="btn fa-solid fa-arrow-rotate-left fa-xl" title="Restore Stock" disabled={stock.isSold || stock.isExpired ? true : false} onClick={() => restoreStock(stock._id)}></button>
                             <button className='btn fa-solid fa-trash fa-xl' title="Delete Stock" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
@@ -200,9 +200,9 @@ const ArchivedStocks = () => {
                             searchTop
                             searchBottom={false}
                             noBottomColumns={false}
-                            bordered
                             fullPagination
-                            striped />
+                            striped 
+                            scrollX/>
                     </div>
                 </div>
             </div>

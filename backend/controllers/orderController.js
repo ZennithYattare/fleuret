@@ -73,7 +73,6 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
 
     if (status === 'Cancelled') {
         const stocks = await Stock.find({ refID: req.params.id }).populate('product')
-        // console.log(stocks) //* working
 
         for(var i = 0 ; i < stocks.length ; i++) {
             stocks[i].isSold = false

@@ -143,6 +143,7 @@ const AdminProductsArchives = () => {
                             searchBottom={false}
                             noBottomColumns={false}
                             striped
+                            scrollX
                         />
                     </div>
                 </div>
