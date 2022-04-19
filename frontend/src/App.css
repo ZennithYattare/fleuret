@@ -1793,7 +1793,18 @@ table.mdb-dataTable thead > tr > th.sorting_asc, table.mdb-dataTable thead > tr 
 #productContainer {
   width: 350px;
   margin: auto;
+  
 }
+
+ @media(min-width: 500px){
+  #productContainer{
+    width: 100%;
+    width: 350px;
+    margin: auto;
+    overflow:hidden;
+    
+  }
+} 
 
 .input-group-addon{color:#ff0000; background-color: #ffffff;}
 

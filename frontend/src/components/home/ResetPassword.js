@@ -62,8 +62,9 @@ const ResetPassword = () => {
 
                     <div className="form-group">
                         <label for="new_password_field">New Password</label>
+                        <div className="input-group">
                         <input
-                            type="password" 
+                            type={showPassword ? "password" : "showPass"}
                             name="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
@@ -71,12 +72,21 @@ const ResetPassword = () => {
                             placeholder="password"
                             className="form-control"
                         />
+                        <div className="input-group-addon">
+                                        <div  id = "showPass3" onClick={showPasswordToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showPassword ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                            </div>
                     </div>
 
                     <div className="form-group">
                         <label for="confirm_password_field">Confirm New Password</label>
+                        <div className="input-group">
                         <input
-                            type="password" 
+                            type={showConfirm ? "password" : "text"}
                             name="confirmPassword"
                             value={confirmPassword}
                             onChange={e => setConfirmPassword(e.target.value)}
@@ -84,6 +94,14 @@ const ResetPassword = () => {
                             placeholder="confirm password"
                             className="form-control"
                         />
+                          <div className="input-group-addon">
+                                        <div  id = "showPass3" onClick={showConfirmToggle}>
+                                            <span className="fa-sm">
+                                                <i className={showConfirm ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"}></i>
+                                            </span>
+                                        </div>
+                                 </div>
+                                 </div>
                     </div>
 
                     <button
