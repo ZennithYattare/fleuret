@@ -77,7 +77,7 @@ const Login = () => {
                             <div className="input-group">
                             <input
                                 required
-                                type={showPassword ? "password" : "email"}
+                                type={showPassword ? "password" : "showPass"}
                                 id="password_field"
                                 className="form-control"
                                 value={password}
