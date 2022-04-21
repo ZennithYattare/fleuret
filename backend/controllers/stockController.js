@@ -66,6 +66,21 @@ exports.getAllStocks = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
+exports.getStockData = catchAsyncErrors(async (req, res, next) => {
+    const expiredStocks = await Stock.find({ isExpired: true })
+    const soldStocks = await Stock.find({ isSold: true })
+    const archivedStocks = await Stock.find({ $or: [{ isArchived: true }, { autoArchive: true }] })
+
+    res.status(200).json({
+        success: true,
+        stocks: {
+            expired: expiredStocks.length,
+            sold: soldStocks.length,
+            archived: archivedStocks.length
+        }
+    })
+})
+
 exports.getArchivedStocks = catchAsyncErrors(async (req, res, next) => {
     const dateToday = new Date(Date.now())
 

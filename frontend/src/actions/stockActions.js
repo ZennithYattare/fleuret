@@ -50,6 +50,27 @@ export const getAllStocks = () => async (dispatch) => {
     }
 }
 
+export const getStockData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: stock.GET_ALL_STOCK_REQUEST
+        })
+
+        const { data } = await axios.get(`/api/v1/stocks/data`);
+
+        dispatch({
+            type: stock.GET_ALL_STOCK_SUCCESS,
+            payload: data
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: stock.GET_ALL_STOCK_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
 export const getSingleStock = (id) => async (dispatch) => {
     try {
         dispatch({

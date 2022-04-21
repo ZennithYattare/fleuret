@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { MDBDataTableV5 } from 'mdbreact'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders, clearErrors } from './../../actions/orderActions'
+import { getStockData } from './../../actions/stockActions'
 import { getAllUsers } from '../../actions/authActions'
 import Metadata from '../layout/Metadata'
 
@@ -27,6 +28,7 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true)
 
     const { loading: ordersLoading, orders, error } = useSelector(state => state.orders)
+    const { loading: stocksLoading, stocks, error: stockError } = useSelector(state => state.stocks)
 
     const { loading: usersLoading, users, error: usersError } = useSelector(state => state.users)
     
@@ -43,12 +45,13 @@ const Dashboard = () => {
 
     useEffect(() => {
         dispatch(getAllOrders())
+        dispatch(getStockData())
 
-        if (error) {
-            alert.error(error)
+        if (stockError || error) {
+            alert.error('Something went wrong')
             dispatch(clearErrors())
         }
-    }, [dispatch, alert, error])
+    }, [dispatch, alert, stockError, error])
 
     useEffect(() => {
         let isMounted = true
@@ -150,7 +153,7 @@ const Dashboard = () => {
     return (
         <Fragment>
             <Metadata title={'Dashboard'} />
-            {!loading && !ordersLoading && !usersLoading &&
+            {!loading && !ordersLoading && !usersLoading && !stocksLoading &&
                 <div className="row">
                     <div className="col-12 col-md-2">
                         <Sidebar />
@@ -242,6 +245,18 @@ const Dashboard = () => {
                                         striped
                                     />
                                 </div>
+                            </div>
+
+                            {/** updates here */}
+                            <div>
+                                <h1>stocks</h1>
+                                <p>expired: {stocks && stocks.expired} stocks</p>
+                                <p>sold: {stocks && stocks.sold} stocks</p>
+                                <p>archived: {stocks && stocks.archived} stocks</p>
+                            </div>
+
+                            <div>
+                                <h1>sales</h1>
                             </div>
                         </div>
                     </div>
