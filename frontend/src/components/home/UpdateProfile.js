@@ -8,6 +8,7 @@ import { Container, Card, Form, Button } from 'react-bootstrap'
 import Metadata from '../layout/Metadata'
 import { Modal } from "react-bootstrap";
 import { logout } from '../../actions/authActions'
+import axios from 'axios'
 
 // import Loader from '../../layout/Loader'
 
@@ -57,15 +58,26 @@ const UpdateProfile = () => {
 
         dispatch(updateProfile({ contact_number: contactNumber, address }))
     }
-    const deactivate = () => {
+    const deactivate = async () => {
         //if (window.confirm('are you sure you want to deactivate?')) {
 
-        dispatch(updateProfile({ isDeactivated: true }))
-        dispatch(logout())
-        alert.success('Deactivated successfully. You can still activate the account within 30 days.')
-        navigate('/')
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
 
-        //}
+            const { data } = await axios.put('/api/v1/me/deactivate', { isDeactivated: true }, config)
+
+            if (data.success) {
+                alert.success('Deactivated successfully. You can still activate the account within 30 days.')
+                dispatch(logout())
+                navigate('/')
+            }
+        } catch (error) {
+            alert.error('Cannot deactivate user with active orders.')
+        }
     }
 
     return (
@@ -176,9 +188,9 @@ const UpdateProfile = () => {
 
                                         <a href='/me/profile' id="testingCancel-btn" aria-disabled="true">Cancel</a>
                                         <hr />
-                                        {user.role === 'Admin' ? '':
-                                        <span data-toggle="modal" onClick={handleShow} className="text-center" id="deactivate-btn">
-                                            Deactivate
+                                        {user.role === 'Admin' ? '' :
+                                            <span data-toggle="modal" onClick={handleShow} className="text-center" id="deactivate-btn">
+                                                Deactivate
                                             </span>}
                                         <Modal show={show} onHide={handleClose} scrollable={true} >
                                             <Modal.Header closeButton>

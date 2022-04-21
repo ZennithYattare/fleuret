@@ -14,6 +14,7 @@ router.route('/password/reset/:token').put(auth.resetPassword)
 
 router.route('/me/profile').get(isAuthenticatedUser, auth.getMyProfile)
 router.route('/me/update').put(isAuthenticatedUser, auth.updateMyProfile)
+router.route('/me/deactivate').put(isAuthenticatedUser, auth.deactivate)
 
 /* CUSTOMER */
 router.route('/customer/register').post(auth.registerCustomer)

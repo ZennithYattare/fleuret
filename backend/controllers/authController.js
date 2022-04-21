@@ -7,6 +7,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const passVal = require('../utils/passwordValidation')
 const Cart = require('../models/cart')
+const Order = require('../models/order')
 
 // templates
 // const verifyEmail = require('../config/templates/verifyEmail')
@@ -77,8 +78,8 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
         await sendEmail({
             email: user.email,
             subject: 'FleuretPH/TK Password Recovery',
-            message: 
-            `
+            message:
+                `
             <div class = "container " style = "width= 30px; text-align: center; padding: 10px; background-color: #EDEDED;">
             <img src="https://res.cloudinary.com/fiorexwebapp/image/upload/v1649059138/logo/logo2_d04lyc.png" alt="Fleuret PH/TK logo" width = "200" style = "margin: auto" />
                 <div class = "header" style = "background-color: #6C4A4A; color: white; padding: 4px; position: absolute;" width: "20" >
@@ -264,14 +265,33 @@ exports.getMyProfile = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
+exports.deactivate = catchAsyncErrors(async (req, res, next) => {
+    const orders = await Order.find({ "user._id": req.user._id, status: { $in: ['Order Placed', 'Processing'] } })
+
+    if (orders.length > 0) {
+        console.log(orders)
+        console.log('here')
+        return next(new ErrorHandler(`User has existing orders. Cannot deactivate.`))
+    }
+
+    var oldDateObj = new Date()
+    var expiresAt = new Date()
+    expiresAt.setTime(oldDateObj.getTime() + 43200 * 60 * 1000) //5 * 60 * 1000 milliseconds 
+
+    const user = await User.findByIdAndUpdate(req.user.id, { isDeactivated: true, expiresAt }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        message: 'deactivated'
+    })
+})
+
 exports.updateMyProfile = catchAsyncErrors(async (req, res, next) => {
-    var oldDateObj = new Date();
-    var newDateObj = new Date();
-    newDateObj.setTime(oldDateObj.getTime() + 43200 * 60 * 1000) //5 * 60 * 1000 milliseconds 
-
-    let expiresAt = req.body.isDeactivated ? newDateObj : null;
-
-    const user = await User.findByIdAndUpdate(req.user.id, { ...req.body, expiresAt }, {
+    const user = await User.findByIdAndUpdate(req.user.id, req.body, {
         new: true,
         runValidators: true,
         useFindAndModify: false
