@@ -7,11 +7,61 @@ const product = require('../models/product')
 
 exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find()
+    const completeOrders = await Order.find({ status: 'Delivered' })
+    const totalSales = completeOrders.reduce((acc, curr) => acc + Number(curr.total_price), 0)
+
+    const weeklyDates = []
+    const weeklyOrders = []
+
+    for (let i = -1; i < 5; i++) {
+        weeklyDates.push(new Date(Date.now() - ((i * 7) * 24 * 60 * 60 * 1000)).setHours(0, 0, 0, 0))
+    }
+    for (let i = 0; i < weeklyDates.length - 1; i++) {
+        const weeklyOrder = await Order.find({
+            created_at: {
+                "$gte": weeklyDates[i + 1].toString(),
+                "$lt": weeklyDates[i].toString()
+            },
+            status: 'Delivered'
+        })
+
+        weeklyOrders.push(weeklyOrder)
+    }
+
+    const week1 = weeklyOrders[1] ? weeklyOrders[0].reduce((acc, curr) => acc + Number(curr.total_price), 0) : 0
+    const week2 = weeklyOrders[2] ? weeklyOrders[1].reduce((acc, curr) => acc + Number(curr.total_price), 0) : 0
+    const week3 = weeklyOrders[3] ? weeklyOrders[2].reduce((acc, curr) => acc + Number(curr.total_price), 0) : 0
+    const week4 = weeklyOrders[4] ? weeklyOrders[3].reduce((acc, curr) => acc + Number(curr.total_price), 0) : 0
 
     res.status(200).json({
         success: true,
         orderCount: orders.length,
-        orders
+        orders,
+        sales: {
+            total: totalSales,
+            weekly: [
+                {
+                    fromDate: new Date(weeklyDates[1]),
+                    toDate: new Date(weeklyDates[0]),
+                    total: week1
+                },
+                {
+                    fromDate: new Date(weeklyDates[2]),
+                    toDate: new Date(weeklyDates[1]),
+                    total: week2
+                },
+                {
+                    fromDate: new Date(weeklyDates[3]),
+                    toDate: new Date(weeklyDates[2]),
+                    total: week3
+                },
+                {
+                    fromDate: new Date(weeklyDates[4]),
+                    toDate: new Date(weeklyDates[3]),
+                    total: week1
+                }
+            ]
+        }
     })
 })
 
@@ -74,7 +124,7 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     if (status === 'Cancelled') {
         const stocks = await Stock.find({ refID: req.params.id }).populate('product')
 
-        for(var i = 0 ; i < stocks.length ; i++) {
+        for (var i = 0; i < stocks.length; i++) {
             stocks[i].isSold = false
             stocks[i].isArchived = false
 

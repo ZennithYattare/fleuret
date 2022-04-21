@@ -6,6 +6,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrders, clearErrors } from './../../actions/orderActions'
 import { getStockData } from './../../actions/stockActions'
+import { formatDate } from '../../formatDate'
 import { getAllUsers } from '../../actions/authActions'
 import Metadata from '../layout/Metadata'
 
@@ -27,13 +28,13 @@ const Dashboard = () => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const { loading: ordersLoading, orders, error } = useSelector(state => state.orders)
+    const { loading: ordersLoading, orders, sales, error } = useSelector(state => state.orders)
     const { loading: stocksLoading, stocks, error: stockError } = useSelector(state => state.stocks)
 
     const { loading: usersLoading, users, error: usersError } = useSelector(state => state.users)
-    
+
     useEffect(() => {
-        if (user.role === 'Admin'){
+        if (user.role === 'Admin') {
             dispatch(getAllUsers())
 
             if (usersError) {
@@ -62,7 +63,7 @@ const Dashboard = () => {
         }
         const fetchData = async () => {
             const { data } = await axios.get('/api/v1/products', config)
-            
+
             if (data.success && isMounted) {
                 setProducts(data.products)
                 setLoading(false)
@@ -104,41 +105,41 @@ const Dashboard = () => {
         }
 
         products && products.forEach(product => {
-            if (product.stock === 0){
-                if (!product.isArchived){
-                    if (!product.isSold){
-                        if (!product.autoArchive){
-                            if (!product.isExpired){
+            if (product.stock === 0) {
+                if (!product.isArchived) {
+                    if (!product.isSold) {
+                        if (!product.autoArchive) {
+                            if (!product.isExpired) {
                                 data.rows.push({
                                     name: product.name,
                                     stocks: product.stock,
                                     status: "Out of Stock",
-                                    actions: 
-                                    <div className="btn-group" role="group">
-                                        <Link to='/admin/stocks'>
-                                            <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
-                                        </Link>
-                                    </div>
+                                    actions:
+                                        <div className="btn-group" role="group">
+                                            <Link to='/admin/stocks'>
+                                                <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
+                                            </Link>
+                                        </div>
                                 })
                             }
                         }
                     }
                 }
             } else if (product.stock < 15) {
-                if (!product.isArchived){
-                    if (!product.isSold){
-                        if (!product.autoArchive){
-                            if (!product.isExpired){
+                if (!product.isArchived) {
+                    if (!product.isSold) {
+                        if (!product.autoArchive) {
+                            if (!product.isExpired) {
                                 data.rows.push({
                                     name: product.name,
                                     stocks: product.stock,
                                     status: "Low on Stocks",
-                                    actions: 
-                                    <div className="btn-group" role="group">
-                                        <Link to='/admin/stocks'>
-                                            <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
-                                        </Link>
-                                    </div>
+                                    actions:
+                                        <div className="btn-group" role="group">
+                                            <Link to='/admin/stocks'>
+                                                <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
+                                            </Link>
+                                        </div>
                                 })
                             }
                         }
@@ -161,14 +162,14 @@ const Dashboard = () => {
 
                     <div className="col-12 col-md-10">
                         <h1 className="my-4">Dashboard</h1>
-                        
-                            <div className={user.role === 'Admin' ? "row pe-4" : "row pe-4 justify-content-center"} style={widthStyle}>
+
+                        <div className={user.role === 'Admin' ? "row pe-4" : "row pe-4 justify-content-center"} style={widthStyle}>
                             <div className="col-sm-4 mb-3">
                                 <div className="card with-revert dashboardProductBorder o-hidden shadow-lg">
                                     <div className="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div className="card-font-size font-weight-bold mb-1 ms-4" style={{color: "#1e5e41"}}>Products</div>
+                                                <div className="card-font-size font-weight-bold mb-1 ms-4" style={{ color: "#1e5e41" }}>Products</div>
                                                 <div class="h4 mb-0 font-weight-bold ms-4">{products.length}</div>
                                             </div>
                                             <div class="col-auto">
@@ -184,13 +185,13 @@ const Dashboard = () => {
                                     </Link>
                                 </div>
                             </div>
-                            
+
                             <div className="col-sm-4 mb-3">
                                 <div className="card with-revert dashboardOrdersBorder o-hidden shadow-lg">
                                     <div className="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div className="card-font-size font-weight-bold mb-1 ms-4" style={{color: "#ff7180"}}>Orders Placed</div>
+                                                <div className="card-font-size font-weight-bold mb-1 ms-4" style={{ color: "#ff7180" }}>Orders Placed</div>
                                                 <div class="h4 mb-0 font-weight-bold ms-4">{orders && orders.filter(x => x.status === 'Order Placed').length}</div>
                                             </div>
                                             <div class="col-auto">
@@ -213,7 +214,7 @@ const Dashboard = () => {
                                         <div className="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <div className="card-font-size font-weight-bold mb-1 ms-4" style={{color: "#00c8e6"}}>Users</div>
+                                                    <div className="card-font-size font-weight-bold mb-1 ms-4" style={{ color: "#00c8e6" }}>Users</div>
                                                     <div class="h4 mb-0 font-weight-bold ms-4">{users && users.filter(y => y.role === 'Customer').length}</div>
                                                 </div>
                                                 <div class="col-auto">
@@ -229,7 +230,7 @@ const Dashboard = () => {
                                         </Link>
                                     </div>
                                 </div>
-                            : "" }
+                                : ""}
 
                             <h3>Critical Stocks</h3>
                             <div className="col-sm-12 mb-3">
@@ -257,6 +258,13 @@ const Dashboard = () => {
 
                             <div>
                                 <h1>sales</h1>
+                                <p>total: {sales && sales.total} pesos</p>
+                                <h4>weekly sales</h4>
+                                {
+                                    sales.weekly && sales.weekly.map(weeklySale => (
+                                        <p>sales from {formatDate(weeklySale.fromDate)} to {formatDate(weeklySale.toDate)}: {weeklySale.total} pesos</p>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
