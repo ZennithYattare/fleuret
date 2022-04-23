@@ -48,6 +48,8 @@ import ArchivedStocks from './components/stocks/ArchivedStocks'
 import CreateStocks from './components/stocks/CreateStocks'
 import StockDetails from './components/stocks/StockDetails'
 import Dashboard from './components/admin/Dashboard'
+import SoldStocks from './components/stocks/SoldStocks'
+import ExpiredStocks from './components/stocks/ExpiredStocks'
 
 const ScrollToTop = ({ children }) => {
     const location = useLocation();
@@ -113,6 +115,8 @@ function App() {
                                 <Route path='/admin/orders/update/:id' element={<AdminOrderForm />} />
                                 <Route path='/admin/stocks' element={<StocksList />} />
                                 <Route path='/admin/stocks/archived' element={<ArchivedStocks />} />
+                                <Route path='/admin/stocks/sold' element={<SoldStocks />} />
+                                <Route path='/admin/stocks/expired' element={<ExpiredStocks />} />
                                 <Route path='/admin/stock/:id' element={<StockDetails />} />
                                 <Route path='/admin/new/stock' element={<CreateStocks />} />
                             </Route>

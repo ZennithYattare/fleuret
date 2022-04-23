@@ -7,7 +7,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import Sidebar from '../admin/Sidebar';
 import Metadata from '../layout/Metadata'
 
-const ArchivedStocks = () => {
+const ExpiredStocks = () => {
 
     const [stockList, setStockList] = useState([])
     const widthStyle = {
@@ -110,11 +110,6 @@ const ArchivedStocks = () => {
                     width: 100
                 },
                 {
-                    label: 'Reason',
-                    field: 'reason',
-                    width: 100
-                },
-                {
                     label: 'Actions',
                     field: 'actions',
                     width: 100,
@@ -125,7 +120,7 @@ const ArchivedStocks = () => {
         }
 
         stockList && stockList.forEach(stock => {
-            if (stock.isArchived || stock.autoArchive) {
+            if (stock.isExpired) {
                 data.rows.push({
                     id: stock._id,
                     name: stock.product?.name,
@@ -134,14 +129,12 @@ const ArchivedStocks = () => {
                     selling: stock.product?.price,
                     acquired: stock.dealers_price,
                     expiry: formatDate(stock.expiry_date),
-                    reason: stock.archiveReason || "Old",
                     actions:
                         <div className="btn-group" role="group">
                             {/* <Link to={`/admin/stock/${stock._id}`} className="btn">
                                 <i class="fa-regular fa-eye fa-xl" title="View Stock"></i>
                             </Link> */}
                             {/* <div style={divTest}></div> */}
-                            <button className="btn fa-solid fa-arrow-rotate-left fa-xl" title="Restore Stock" disabled={stock.isSold || stock.isExpired ? true : false} onClick={() => restoreStock(stock._id)}></button>
                             <button className='btn fa-solid fa-trash fa-xl' title="Delete Stock" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
@@ -179,7 +172,7 @@ const ArchivedStocks = () => {
                 </div>
 
                 <div className="col-12 col-md-10">
-                    <h1 className="my-4">Archived Stocks</h1>
+                    <h1 className="my-4">Expired Stocks</h1>
                     <div style={widthStyle}>
                         <MDBDataTableV5
                             hover
@@ -200,4 +193,4 @@ const ArchivedStocks = () => {
     )
 }
 
-export default ArchivedStocks
+export default ExpiredStocks

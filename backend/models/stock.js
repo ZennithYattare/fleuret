@@ -53,6 +53,12 @@ const stockSchema = new mongoose.Schema({
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
+    },
+    archiveReason:{
+        type: String
+    },
+    dateSold: {
+        type: Date
     }
 })
 

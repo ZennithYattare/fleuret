@@ -127,6 +127,7 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
         for (var i = 0; i < stocks.length; i++) {
             stocks[i].isSold = false
             stocks[i].isArchived = false
+            stocks[i].dateSold = null
 
             stocks[i].product.stock += 1
             await stocks[i].product.save()
