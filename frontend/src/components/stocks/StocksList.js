@@ -21,7 +21,7 @@ const StocksList = () => {
 
   const [stockID, setStockID] = useState('')
 
-  const [archiveReason, setArchiveReason] = useState('')
+  const [archiveReason, setArchiveReason] = useState('Damaged')
 
   const [show, setShow] = useState(false);
 
@@ -120,7 +120,7 @@ const StocksList = () => {
     stockList &&
       stockList.forEach((stock) => {
         if (!stock.isArchived && !stock.autoArchive) {
-          if (!stock.isExpired) {
+          if (!stock.isExpired && !stock.isSold) {
             data.rows.push({
               id: stock._id,
               name: stock?.product?.name,
@@ -144,7 +144,7 @@ const StocksList = () => {
                       <Modal.Title>Select Reason</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      <Form.Select aria-label="Select Reason" onChange={(e) => setArchiveReason(e.target.value)}>
+                      <Form.Select aria-label="Select Reason" onChange={(e) => setArchiveReason(e.target.value)} required>
                         <option value="Damaged">Damaged</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -161,7 +161,7 @@ const StocksList = () => {
                         Close
                       </Button>
                       <Button
-                        variant="primary"
+                        variant="danger"
                         onClick={() => {
                           handleClose();
                           archiveStock(stockID);

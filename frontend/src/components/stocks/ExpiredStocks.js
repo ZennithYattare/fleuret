@@ -6,6 +6,8 @@ import { useAlert } from "react-alert"
 import { MDBDataTableV5 } from 'mdbreact'
 import Sidebar from '../admin/Sidebar';
 import Metadata from '../layout/Metadata'
+import { Button, Form, Modal } from "react-bootstrap";
+
 
 const ExpiredStocks = () => {
 
@@ -27,7 +29,7 @@ const ExpiredStocks = () => {
             }
         }
         const fetchData = async () => {
-            const { data } = await axios.get('/api/v1/stocks/archived', config)
+            const { data } = await axios.get("/api/v1/stocks", config);
 
             if (data.success && isMounted) {
                 setStockList(data.stocks)
@@ -69,6 +71,32 @@ const ExpiredStocks = () => {
             alert.error(error.response.data.message)
         }
     }
+
+    const archiveStock = async (id) => {
+        try {
+          const { data } = await axios.put(
+            `/api/v1/stock/archive/${id}`,
+            {
+              archiveReason: "Old Record"
+            },
+            {
+              "Content-Type": "application/json",
+            }
+          );
+          if (data.success) {
+            alert.success("Stock moved to archive");
+            setStockList(stockList.filter((stock) => stock._id !== id));
+          }
+        } catch (error) {
+          alert.error(error.response.data.message);
+        }
+      };
+
+    const [stockID, setStockID] = useState('')
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const setStockArchivedData = () => {
         const data = {
@@ -119,8 +147,10 @@ const ExpiredStocks = () => {
             rows: []
         }
 
+
+
         stockList && stockList.forEach(stock => {
-            if (stock.isExpired) {
+            if (stock.isExpired && !stock.isArchived) {
                 data.rows.push({
                     id: stock._id,
                     name: stock.product?.name,
@@ -130,34 +160,44 @@ const ExpiredStocks = () => {
                     acquired: stock.dealers_price,
                     expiry: formatDate(stock.expiry_date),
                     actions:
-                        <div className="btn-group" role="group">
-                            {/* <Link to={`/admin/stock/${stock._id}`} className="btn">
-                                <i class="fa-regular fa-eye fa-xl" title="View Stock"></i>
-                            </Link> */}
-                            {/* <div style={divTest}></div> */}
-                            <button className='btn fa-solid fa-trash fa-xl' title="Delete Stock" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-body" style={{textAlign: 'justify'}}>
-                                            <b>Are you sure you want to delete this stock?</b>
-                                            <br></br>
-                                            This action cannot be undone.
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => deleteStock(stock._id)}>Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="btn-group" role="group">
+                    <button
+                      className="btn fa-solid fa-box-archive fa-xl"
+                      title="Archive Stock"
+                      onClick={() => {
+                        setStockID(stock._id);
+                        handleShow();
+                      }}
+                    ></button>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Archive Stock</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <p>Are you sure you want to archive this stock?</p>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="secondary"
+                          onClick={() => {
+                            setStockID('');
+                            handleClose();
+                          }}
+                        >
+                          Close
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => {
+                            handleClose();
+                            archiveStock(stockID);
+                          }}
+                        >
+                          Archive
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
                 })
             }
         })

@@ -56,7 +56,7 @@ exports.getAllStocks = catchAsyncErrors(async (req, res, next) => {
   const expiredStocks = await Stock.find({ expiry_date: { $lte: dateToday } });
 
   for (var i = 0; i < expiredStocks.length; i++) {
-    expiredStocks[i].isArchived = true;
+    // expiredStocks[i].isArchived = true;
     expiredStocks[i].isExpired = true;
     await expiredStocks[i].save();
   }
@@ -94,7 +94,7 @@ exports.getArchivedStocks = catchAsyncErrors(async (req, res, next) => {
   const expiredStocks = await Stock.find({ expiry_date: { $lte: dateToday } });
 
   for (var i = 0; i < expiredStocks.length; i++) {
-    expiredStocks[i].isArchived = true;
+    // expiredStocks[i].isArchived = true;
     expiredStocks[i].isExpired = true;
     await expiredStocks[i].save();
   }
@@ -137,16 +137,6 @@ exports.archiveStock = catchAsyncErrors(async (req, res, next) => {
     return next(
       new ErrorHandler("Cannot restore stock of archived product", 404)
     );
-  }
-
-  if (stock.isExpired) {
-    return next(
-      new ErrorHandler("Cannot restore stock of expired product", 404)
-    );
-  }
-
-  if (stock.isSold) {
-    return next(new ErrorHandler("Cannot restore sold stock", 404));
   }
 
   if (stock.isArchived) {
@@ -239,7 +229,7 @@ exports.updateStocks = catchAsyncErrors(async (req, res, next) => {
       stocks[i]._id,
       {
         isSold: true,
-        isArchived: true,
+        // isArchived: true,
         refID: req.body.refId,
         dateSold: new Date(Date.now()),
       },
