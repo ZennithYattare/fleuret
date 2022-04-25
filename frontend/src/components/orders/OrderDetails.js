@@ -111,7 +111,7 @@ const OrderDetails = () => {
                                                             Order Date
                             </span>{" "}
                                                         <span>
-                                                            {dateFormat(order.order_date, "mmm dS, yyyy")}
+                                                            {dateFormat(order.order_date, "mmm d, yyyy")}
                                                         </span>{" "}
                                                     </div>
                                                 </td>
@@ -132,7 +132,7 @@ const OrderDetails = () => {
                                                                 Expected Pickup Date
                             </span>{" "}
                                                                 <span>
-                                                                    {dateFormat(order.delivery_date, "mmm dS, yyyy")}
+                                                                    {dateFormat(order.delivery_date, "mmm d, yyyy")}
                                                                 </span>{" "}
                                                             </> : <>
                                                                 <span className="d-block text-muted">
@@ -140,7 +140,7 @@ const OrderDetails = () => {
                             </span>{" "}
 
                                                                 <span>
-                                                                    {dateFormat(order.delivery_date, "mmm dS, yyyy")}
+                                                                    {dateFormat(order.delivery_date, "mmm d, yyyy")}
                                                                 </span>{" "}
                                                             </>}
                                                     </div>
