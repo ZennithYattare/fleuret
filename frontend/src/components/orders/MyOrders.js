@@ -85,7 +85,7 @@ const MyOrders = () => {
                     width: 150
                 },
                 {
-                    label: 'Deliver By',
+                    label: 'Expected Delivery Date',
                     field: 'ship',
                     width: 100
                 },
