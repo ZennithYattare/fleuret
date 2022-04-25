@@ -98,13 +98,21 @@ const CartList = () => {
                 </span>
               </p>
               <p>
-                Est. total:{" "}
+                Total Amount:{" "}
                 <span className="order-summary-values">
                   ₱ {totalPrice()}.00
                 </span>
               </p>
+              
 
               <hr />
+              <small className = "text-center">
+
+                  * Delivery charge may apply upon checkout
+                
+                
+              </small>
+              <hr/>
               {totalPrice() ? (
                 <Link to={`/order/new`}>
                   <button className="btn btn-primary" id="checkout_btn">
@@ -115,6 +123,7 @@ const CartList = () => {
                 ""
               )}
             </div>
+            
           </div>
         </div>
       </div>
