@@ -19,6 +19,8 @@ const StocksList = () => {
     marginLeft: "5px",
   };
 
+  const [stockID, setStockID] = useState('')
+
   const [archiveReason, setArchiveReason] = useState('')
 
   const [show, setShow] = useState(false);
@@ -133,6 +135,7 @@ const StocksList = () => {
                     className="btn fa-solid fa-box-archive fa-xl"
                     title="Archive Stock"
                     onClick={() => {
+                      setStockID(stock._id);
                       handleShow();
                     }}
                   ></button>
@@ -142,7 +145,6 @@ const StocksList = () => {
                     </Modal.Header>
                     <Modal.Body>
                       <Form.Select aria-label="Select Reason" onChange={(e) => setArchiveReason(e.target.value)}>
-                        <option selected disabled>Open this select menu</option>
                         <option value="Damaged">Damaged</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -152,6 +154,7 @@ const StocksList = () => {
                       <Button
                         variant="secondary"
                         onClick={() => {
+                          setStockID('');
                           handleClose();
                         }}
                       >
@@ -161,7 +164,7 @@ const StocksList = () => {
                         variant="primary"
                         onClick={() => {
                           handleClose();
-                          archiveStock(stock._id);
+                          archiveStock(stockID);
                         }}
                       >
                         Archive
