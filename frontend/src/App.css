@@ -1718,8 +1718,12 @@ table.mdb-dataTable thead > tr > th.sorting_asc, table.mdb-dataTable thead > tr 
 
 /*-- ADMIN DASHBOARD --*/
 
-.dashboardProductBorder {
+.dashboardSalesBorder {
   border-left: 5px solid #1e5e41;
+}
+
+.dashboardProductBorder {
+  border-left: 5px solid #7c688a;
 }
 
 .dashboardOrdersBorder {
@@ -1732,6 +1736,10 @@ table.mdb-dataTable thead > tr > th.sorting_asc, table.mdb-dataTable thead > tr 
 
 .card.with-revert {
   height: unset;
+}
+
+.table > :not(:first-child) {
+  border-top: 0;
 }
 
 /*-- ADMIN STOCKS --*/
