@@ -168,7 +168,7 @@ const AdminOrderForm = () => {
                                                 <option value="Processing">Processing</option>
                                                 <option value={order.delivery_mode === 'Pickup' ? 'Ready for Pickup' : 'Shipped'}>{order.delivery_mode === 'Pickup' ? 'Ready for Pickup' : 'Shipped'}</option>
                                                 <option value="Delivered">Delivered</option>
-                                                <option value="Cancelled">Cancelled</option>
+                                                {order?.status === 'Delivered' ? "" : <option value="Cancelled">Cancelled</option>}
                                                 <option value="Return/Refund">Return/Refund</option>
                                             </Form.Select>
                                         </Form.Group>
