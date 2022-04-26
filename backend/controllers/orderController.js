@@ -13,10 +13,11 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     const weeklyDates = []
     const weeklyOrders = []
 
-    for (let i = -1; i < 5; i++) {
+    for (let i = 0; i <= 5; i++) {
         weeklyDates.push(new Date(Date.now() - ((i * 7) * 24 * 60 * 60 * 1000)).setHours(0, 0, 0, 0))
     }
     for (let i = 0; i < weeklyDates.length - 1; i++) {
+        console.log(new Date(weeklyDates[i]))
         const weeklyOrder = await Order.find({
             created_at: {
                 "$gte": weeklyDates[i + 1].toString(),
@@ -58,7 +59,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
                 {
                     fromDate: new Date(weeklyDates[4]),
                     toDate: new Date(weeklyDates[3]),
-                    total: week1
+                    total: week4
                 }
             ]
         }
