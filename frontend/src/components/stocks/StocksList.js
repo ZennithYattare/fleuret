@@ -7,6 +7,7 @@ import { MDBDataTableV5 } from "mdbreact";
 import Sidebar from "../admin/Sidebar";
 import Metadata from "../layout/Metadata";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useSelector } from 'react-redux';
 
 const StocksList = () => {
   const [stockList, setStockList] = useState([]);
@@ -18,6 +19,8 @@ const StocksList = () => {
     marginRight: "5px",
     marginLeft: "5px",
   };
+
+  const { loading } = useSelector(state => state.auth)
 
   const [stockID, setStockID] = useState('')
 
@@ -146,8 +149,8 @@ const StocksList = () => {
                     <Modal.Body>
                       <Form.Select aria-label="Select Reason" onChange={(e) => setArchiveReason(e.target.value)} required>
                         <option value="Damaged">Damaged</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="Option 2">Option 2</option>
+                        <option value="Option 3">Option 3</option>
                       </Form.Select>
                     </Modal.Body>
                     <Modal.Footer>
@@ -171,7 +174,9 @@ const StocksList = () => {
                       </Button>
                     </Modal.Footer>
                   </Modal> */}
-                  <button className='btn fa-solid fa-box-archive fa-xl' title="Archive Stock" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                  <button className='btn fa-solid fa-box-archive fa-xl' title="Archive Stock" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => {
+                      setStockID(stock._id);
+                    }}></button>
                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content">
@@ -190,7 +195,7 @@ const StocksList = () => {
 
                               <div class="modal-footer">
                                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => {archiveStock(stock._id)}}>Archive</button>
+                                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => {archiveStock(stockID);}}>Archive</button>
                               </div>
                           </div>
                       </div>
@@ -203,34 +208,40 @@ const StocksList = () => {
       });
     return data;
   };
-  return (
-    <Fragment>
-      <Metadata title={"All Stocks"} />
-      <div className="row">
-        <div className="col-12 col-md-2">
-          <Sidebar />
-        </div>
 
-        <div className="col-12 col-md-10">
-          <h1 className="my-4">Stocks</h1>
-          <div style={widthStyle}>
-            <MDBDataTableV5
-              hover
-              entriesOptions={[20, 30, 40]}
-              entries={20}
-              pagesAmount={4}
-              data={setStockData()}
-              searchTop
-              searchBottom={false}
-              noBottomColumns={false}
-              striped
-              fullPagination
-              scrollX
-            />
+  return (
+    <>
+    {loading ? <h1>Loading</h1>
+    : <>
+      <Fragment>
+        <Metadata title={"All Stocks"} />
+        <div className="row">
+          <div className="col-12 col-md-2">
+            <Sidebar />
+          </div>
+
+          <div className="col-12 col-md-10">
+            <h1 className="my-4">Stocks</h1>
+            <div style={widthStyle}>
+              <MDBDataTableV5
+                hover
+                entriesOptions={[20, 30, 40]}
+                entries={20}
+                pagesAmount={4}
+                data={setStockData()}
+                searchTop
+                searchBottom={false}
+                noBottomColumns={false}
+                striped
+                fullPagination
+                scrollX
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </Fragment>
+      </Fragment>
+    </>}
+    </>
   );
 };
 

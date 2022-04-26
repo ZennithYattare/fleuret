@@ -199,7 +199,9 @@ const SoldStocks = () => {
                         </Button>
                       </Modal.Footer>
                     </Modal> */}
-                    <button className='btn fa-solid fa-box-archive fa-xl' title="Archive Stock" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                    <button className='btn fa-solid fa-box-archive fa-xl' title="Archive Stock" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => {
+                        setStockID(stock._id);
+                      }}></button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -214,7 +216,7 @@ const SoldStocks = () => {
 
                                 <div class="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => {archiveStock(stock._id)}}>Archive</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => {archiveStock(stockID);}}>Archive</button>
                                 </div>
                             </div>
                         </div>
