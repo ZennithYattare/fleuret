@@ -68,32 +68,32 @@ const Sidebar = () => {
             </Link>
             <ul className="collapse list-unstyled" id="stocksSubmenu">
               <li>
-                <Link to="/admin/new/stock">
-                  <i className="fa fa-plus"></i>Create
-                </Link>
-              </li>
-
-              <li>
                 <Link to="/admin/stocks">
                   <i className="fa fa-clipboard"></i>All
                 </Link>
               </li>
 
               <li>
-                <Link to="/admin/stocks/archived">
-                  <i className="fa fa-book"></i>Archived
+                <Link to="/admin/new/stock">
+                  <i className="fa fa-plus"></i>Create
                 </Link>
               </li>
 
               <li>
                 <Link to="/admin/stocks/sold">
-                  <i className="fa fa-book"></i>Sold
+                  <i class="fa-solid fa-square-check"></i>Sold
                 </Link>
               </li>
 
               <li>
                 <Link to="/admin/stocks/expired">
-                  <i className="fa fa-book"></i>Expired
+                  <i class="fa-solid fa-circle-xmark"></i>Expired
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/admin/stocks/archived">
+                  <i className="fa fa-book"></i>Archived
                 </Link>
               </li>
             </ul>
