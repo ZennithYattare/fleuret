@@ -77,6 +77,7 @@ const UpdateProfile = () => {
             }
         } catch (error) {
             alert.error('Cannot deactivate user with active orders.')
+             setShow(false);
         }
     }
 
