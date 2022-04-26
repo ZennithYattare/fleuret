@@ -307,7 +307,7 @@ const Dashboard = () => {
                                                 {
                                                     sales.weekly && sales.weekly.map(weeklySale => (
                                                         <tr>
-                                                            <th scope="row">{moment(weeklySale.fromDate).add(1, 'days').format('L')} - {moment(weeklySale.toDate).format('L')}</th>
+                                                            <th scope="row">{moment(weeklySale.fromDate).format('L')} - {moment(weeklySale.toDate).subtract(1, 'days').format('L')}</th>
                                                             {/* <th scope="row">{moment(weeklySale.fromDate).format('L')} - {moment(weeklySale.toDate).format('L')}</th> */}
                                                             <td>₱ {weeklySale.total}</td>
                                                         </tr>
