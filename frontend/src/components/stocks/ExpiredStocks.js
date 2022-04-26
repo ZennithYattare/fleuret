@@ -161,7 +161,7 @@ const ExpiredStocks = () => {
                     expiry: formatDate(stock.expiry_date),
                     actions:
                     <div className="btn-group" role="group">
-                    <button
+                    {/* <button
                       className="btn fa-solid fa-box-archive fa-xl"
                       title="Archive Stock"
                       onClick={() => {
@@ -196,7 +196,27 @@ const ExpiredStocks = () => {
                           Archive
                         </Button>
                       </Modal.Footer>
-                    </Modal>
+                    </Modal> */}
+                    <button className='btn fa-solid fa-box-archive fa-xl' title="Archive Stock" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Archive Stock</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body" style={{textAlign: 'justify'}}>
+                                  <b>Are you sure you want to archive this stock?</b>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={() => {archiveStock(stock._id)}}>Archive</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   </div>
                 })
             }
