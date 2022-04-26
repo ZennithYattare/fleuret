@@ -95,9 +95,7 @@ const AllOrders = () => {
                 order: formatDate(order.order_date),
                 ship: formatDate(order.delivery_date),
                 update: formatDate(order.updated_at),
-                status: order.status && String(order.status).includes('Delivered')
-                ? <p style={{ color: 'green' }}>{order.status}</p>
-                : order.status,
+                status: order.status,
                 actions: <div className="btn-group" role="group">
                     <Link to={`/admin/orders/update/${order._id}`}>
                         <button className='btn fa-solid fa-arrows-rotate fa-xl' title='Update Order'></button>
