@@ -8,6 +8,7 @@ import { getAllOrders, clearErrors } from './../../actions/orderActions'
 import { getStockData } from './../../actions/stockActions'
 import { formatDate } from '../../formatDate'
 import { getAllUsers } from '../../actions/authActions'
+import moment from 'moment';
 import Metadata from '../layout/Metadata'
 
 //import Metadata from './layout/Metadata';
@@ -107,43 +108,31 @@ const Dashboard = () => {
         products && products.forEach(product => {
             if (product.stock === 0) {
                 if (!product.isArchived) {
-                    if (!product.isSold) {
-                        if (!product.autoArchive) {
-                            if (!product.isExpired) {
-                                data.rows.push({
-                                    name: product.name,
-                                    stocks: product.stock,
-                                    status: "Out of Stock",
-                                    actions:
-                                        <div className="btn-group" role="group">
-                                            <Link to='/admin/stocks'>
-                                                <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
-                                            </Link>
-                                        </div>
-                                })
-                            }
-                        }
-                    }
+                    data.rows.push({
+                        name: product.name,
+                        stocks: product.stock,
+                        status: "Out of Stock",
+                        actions:
+                        <div className="btn-group" role="group">
+                            <Link to='/admin/stocks'>
+                                <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
+                            </Link>
+                        </div>
+                    })                    
                 }
             } else if (product.stock < 15) {
                 if (!product.isArchived) {
-                    if (!product.isSold) {
-                        if (!product.autoArchive) {
-                            if (!product.isExpired) {
-                                data.rows.push({
-                                    name: product.name,
-                                    stocks: product.stock,
-                                    status: "Low on Stocks",
-                                    actions:
-                                        <div className="btn-group" role="group">
-                                            <Link to='/admin/stocks'>
-                                                <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
-                                            </Link>
-                                        </div>
-                                })
-                            }
-                        }
-                    }
+                    data.rows.push({
+                        name: product.name,
+                        stocks: product.stock,
+                        status: "Low on Stocks",
+                        actions:
+                            <div className="btn-group" role="group">
+                                <Link to='/admin/stocks'>
+                                    <button className='btn fa-solid fa-arrow-right fa-xl' title="All Stocks"></button>
+                                </Link>
+                            </div>
+                    })     
                 }
             }
         })
@@ -160,112 +149,178 @@ const Dashboard = () => {
                         <Sidebar />
                     </div>
 
-                    <div className="col-12 col-md-10">
+                    <div className="col-12 col-md-10 ps-4">
                         <h1 className="my-4">Dashboard</h1>
 
-                        <div className={user.role === 'Admin' ? "row pe-4" : "row pe-4 justify-content-center"} style={widthStyle}>
-                            <div className="col-sm-4 mb-3">
+                        <div className="row" style={widthStyle}>
+                        
+                            <div className={user.role === 'Admin' ? "col-sm-3 mb-3" : "col-sm-4 mb-3"}>
+                                <div className="card with-revert dashboardSalesBorder o-hidden shadow-lg">
+                                    <div className="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div className="card-font-size font-weight-bold mb-1 ms-4">Gross Sales</div>
+                                                <div class="h4 mb-0 font-weight-bold ms-4">₱ {sales && sales.total}</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fa-solid fa-peso-sign fa-2x" style={{ color: "#1e5e41" }}></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={user.role === 'Admin' ? "col-sm-3 mb-3" : "col-sm-4 mb-3"}>
                                 <div className="card with-revert dashboardProductBorder o-hidden shadow-lg">
                                     <div className="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div className="card-font-size font-weight-bold mb-1 ms-4" style={{ color: "#1e5e41" }}>Products</div>
+                                                <div className="card-font-size font-weight-bold mb-1 ms-4">Products</div>
                                                 <div class="h4 mb-0 font-weight-bold ms-4">{products.length}</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fa-brands fa-product-hunt fa-2x text-muted"></i>
+                                                <i class="fa-brands fa-product-hunt fa-2x" style={{ color: "#7c688a" }}></i>
                                             </div>
                                         </div>
+                                        <Link className="stretched-link" to="/admin/products/all" title="View All Products"></Link>
                                     </div>
-                                    <Link id="removeBlue" className="card-footer clearfix small z-1" to="/admin/products/all">
-                                        <span className="float-start">View Details </span>
-                                        <span className="float-end">
-                                            <i className="fa-solid fa-angle-right"></i>
-                                        </span>
-                                    </Link>
                                 </div>
                             </div>
 
-                            <div className="col-sm-4 mb-3">
+                            <div className={user.role === 'Admin' ? "col-sm-3 mb-3" : "col-sm-4 mb-3"}>
                                 <div className="card with-revert dashboardOrdersBorder o-hidden shadow-lg">
                                     <div className="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div className="card-font-size font-weight-bold mb-1 ms-4" style={{ color: "#ff7180" }}>Orders Placed</div>
+                                                <div className="card-font-size font-weight-bold mb-1 ms-4">Orders Placed</div>
                                                 <div class="h4 mb-0 font-weight-bold ms-4">{orders && orders.filter(x => x.status === 'Order Placed').length}</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fa-solid fa-cart-shopping fa-2x text-muted"></i>
+                                                <i class="fa-solid fa-cart-shopping fa-2x" style={{ color: "#ff7180" }}></i>
                                             </div>
                                         </div>
+                                        <Link className="stretched-link" to="/admin/orders" title="View Placed Orders"></Link>
                                     </div>
-                                    <Link id="removeBlue" className="card-footer clearfix small z-1" to="/admin/orders">
-                                        <span className="float-start">View Details </span>
-                                        <span className="float-end">
-                                            <i className="fa-solid fa-angle-right"></i>
-                                        </span>
-                                    </Link>
                                 </div>
                             </div>
 
                             {user.role !== "Staff" ?
-                                <div className="col-sm-4 mb-3">
+                                <div className="col-sm-3 mb-3">
                                     <div className="card with-revert dashboardUsersBorder o-hidden shadow-lg">
                                         <div className="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <div className="card-font-size font-weight-bold mb-1 ms-4" style={{ color: "#00c8e6" }}>Users</div>
+                                                    <div className="card-font-size font-weight-bold mb-1 ms-4">Users</div>
                                                     <div class="h4 mb-0 font-weight-bold ms-4">{users && users.filter(y => y.role === 'Customer').length}</div>
                                                 </div>
                                                 <div class="col-auto">
-                                                    <i class="fa-solid fa-users fa-2x text-muted"></i>
+                                                    <i class="fa-solid fa-users fa-2x" style={{ color: "#00c8e6" }}></i>
                                                 </div>
                                             </div>
+                                            <Link className="stretched-link" to={user.role === 'Admin' ? "/admin/users" : ""} title="View All Users"></Link>
                                         </div>
-                                        <Link id="removeBlue" className="card-footer clearfix small z-1" to={user.role === 'Admin' ? "/admin/users" : ""} >
-                                            <span className="float-start">View Details </span>
-                                            <span className="float-end">
-                                                <i className="fa-solid fa-angle-right"></i>
-                                            </span>
-                                        </Link>
                                     </div>
                                 </div>
-                                : ""}
+                            : ""}
 
-                            <h3>Critical Stocks</h3>
                             <div className="col-sm-12 mb-3">
-                                <div style={widthStyle1}>
-                                    <MDBDataTableV5
-                                        hover
-                                        entriesOptions={[10, 15]}
-                                        entries={10}
-                                        pagesAmount={4}
-                                        data={setLowStocks()}
-                                        searchBottom={false}
-                                        noBottomColumns={false}
-                                        striped
-                                    />
+                                <div className="card with-revert o-hidden shadow-lg">
+                                    <div className="card-body" style={{paddingLeft: "16px"}}>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div className="card-font-size font-weight-bold mb-1">Critical Stocks</div>
+                                                <hr></hr>
+                                            </div>
+                                            <div style={widthStyle1}>
+                                                <MDBDataTableV5
+                                                    hover
+                                                    entriesOptions={[3, 5, 10]}
+                                                    entries={3}
+                                                    pagesAmount={4}
+                                                    data={setLowStocks()}
+                                                    searchBottom={false}
+                                                    striped
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-sm-4 mb-3">
+                                <div className="card with-revert o-hidden shadow-lg">
+                                    <div className="card-body" style={{paddingLeft: "16px"}}>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div className="card-font-size font-weight-bold mb-1">Stocks Summary</div>
+                                                <hr></hr>
+                                            </div>
+                                        </div>
+                                        {/* <Link className="stretched-link" to="/admin/orders" title="View Placed Orders"></Link> */}
+                                        <div class="table-responsive col-auto">
+                                        <table class="table table-striped" style={widthStyle1}>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Quantity</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Sold</th>
+                                                    <td>{stocks && stocks.sold}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Expired</th>
+                                                    <td>{stocks && stocks.expired}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Archived</th>
+                                                    <td>{stocks && stocks.archived}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-sm-8 mb-3">
+                                <div className="card with-revert o-hidden shadow-lg">
+                                    <div className="card-body" style={{paddingLeft: "16px"}}>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div className="card-font-size font-weight-bold mb-1">Weekly Gross Sales</div>
+                                                <hr></hr>
+                                            </div>
+                                        </div>
+                                        {/* <Link className="stretched-link" to="/admin/orders" title="View Placed Orders"></Link> */}
+                                        <div class="table-responsive col-auto">
+                                        <table class="table table-striped" style={widthStyle1}>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Range</th>
+                                                    <th scope="col">Gross Sales</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    sales.weekly && sales.weekly.map(weeklySale => (
+                                                        <tr>
+                                                            <th scope="row">{moment(weeklySale.fromDate).add(1, 'days').format('L')} - {moment(weeklySale.toDate).format('L')}</th>
+                                                            {/* <th scope="row">{moment(weeklySale.fromDate).format('L')} - {moment(weeklySale.toDate).format('L')}</th> */}
+                                                            <td>₱ {weeklySale.total}</td>
+                                                        </tr>
+                                                    ))
+                                                }
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             {/** updates here */}
-                            <div>
-                                <h1>stocks</h1>
-                                <p>expired: {stocks && stocks.expired} stocks</p>
-                                <p>sold: {stocks && stocks.sold} stocks</p>
-                                <p>archived: {stocks && stocks.archived} stocks</p>
-                            </div>
-
-                            <div>
-                                <h1>sales</h1>
-                                <p>total: {sales && sales.total} pesos</p>
-                                <h4>weekly sales</h4>
-                                {
-                                    sales.weekly && sales.weekly.map(weeklySale => (
-                                        <p>sales from {formatDate(weeklySale.fromDate)} to {formatDate(weeklySale.toDate)}: {weeklySale.total} pesos</p>
-                                    ))
-                                }
-                            </div>
                         </div>
                     </div>
 
