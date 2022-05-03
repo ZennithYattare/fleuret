@@ -12,7 +12,7 @@ const Home = () => {
                 <Metadata title={'Home'}/>
             <div className = "welcome">
                 <div className = "child">
-                <h1>WELCOME TO FLEURET PH/TK!</h1>
+                <h1>DEPLOYMENT</h1>
                 <p className = "text-centers">Just say it with flowers.</p>
             
                     <a href = "/products" className = "shopBtn">SHOP NOW!</a>
