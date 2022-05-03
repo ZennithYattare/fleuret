@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node backend/server.js",
         "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/server",
-        "prod": "SET NODE_ENV=PRODUCTION& nodemon backend/server"
+        "prod": "SET NODE_ENV=PRODUCTION& nodemon backend/server",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
     },
     "author": "",
     "license": "ISC",
@@ -15,6 +16,7 @@
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
+        "cloudinary": "^1.28.1",
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.0.0",
         "express": "^4.17.3",
@@ -26,5 +28,8 @@
         "password-validator": "^5.2.1",
         "uuid": "^8.3.2",
         "validator": "^13.7.0"
+    },
+    "engines": {
+        "node": "14.16.0"
     }
 }

@@ -32,7 +32,6 @@
         "dateformat": "^5.0.3",
         "http-proxy-middleware": "^2.0.4",
         "mdbreact": "^5.2.0",
-        "moment": "^2.29.3",
         "react": "^16.14.0",
         "react-alert": "^7.0.3",
         "react-alert-template-basic": "^1.0.2",
@@ -45,6 +44,7 @@
         "react-scripts": "^5.0.0",
         "redux": "^4.1.2",
         "redux-devtools-extension": "^2.13.9",
-        "redux-thunk": "^2.4.1"
+        "redux-thunk": "^2.4.1",
+        "moment": "^2.29.3"
     }
 }
