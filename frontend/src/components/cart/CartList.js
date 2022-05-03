@@ -37,7 +37,6 @@ const CartList = () => {
     var total = 0;
     order.forEach(({ product, quantity }) => {
       total += product?.price * quantity;
-      console.log(total);
     });
     return total;
   };

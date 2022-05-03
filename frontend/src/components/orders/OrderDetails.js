@@ -56,8 +56,6 @@ const OrderDetails = () => {
         }
     }, [order]);
 
-    console.log(total);
-
     const cancelOrder = async (id, order) => {
         try {
             await axios.put(

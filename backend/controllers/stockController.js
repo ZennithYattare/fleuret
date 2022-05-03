@@ -223,7 +223,6 @@ exports.updateStocks = catchAsyncErrors(async (req, res, next) => {
   });
 
   const { quantity } = req.body;
-  // console.log(stocks.length)
   for (var i = 0; i < quantity; i++) {
     await Stock.findByIdAndUpdate(
       stocks[i]._id,
@@ -239,7 +238,6 @@ exports.updateStocks = catchAsyncErrors(async (req, res, next) => {
         useFindAndModify: false,
       }
     );
-    // console.log(data)
   }
 
   const prod = await Product.findById(req.params.id);

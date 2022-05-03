@@ -48,7 +48,6 @@ const OrdersForm = () => {
 
     const [delivery, setDelivery] = useState("");
 
-    console.log(delivery_date);
     useEffect(() => {
         var totalAmount = 0;
         if (order.delivery_mode === "Delivery") {
@@ -103,8 +102,6 @@ const OrdersForm = () => {
         setOrder({ ...order, delivery_date: delivery_date });
     }, [delivery_date]);
 
-    console.log(order.total_price);
-
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -141,12 +138,10 @@ const OrdersForm = () => {
                 // }
 
                 products.map(({ product, quantity }) => {
-                    console.log(product, quantity)
                     const { data } = axios.put(`/api/v1/stocks/remove/${product._id}`, {
                         quantity,
                         refId,
                     }, config)
-                    // console.log(data)
                 });
                 navigate(`/invoice/${refId}`);
             }
