@@ -133,11 +133,11 @@ exports.archiveStock = catchAsyncErrors(async (req, res, next) => {
 
   const product = stock.product;
 
-  if (product.isArchived) {
-    return next(
-      new ErrorHandler("Cannot restore stock of archived product", 404)
-    );
-  }
+  // if (product.isArchived) {
+  //   return next(
+  //     new ErrorHandler("Cannot restore stock of archived product", 404)
+  //   );
+  // }
 
   if (stock.isArchived) {
     product.stock += 1;
