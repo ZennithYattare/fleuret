@@ -143,11 +143,6 @@ const SoldStocks = () => {
           width: 100,
         },
         {
-          label: "Archived",
-          field: "archived",
-          width: 100,
-        },
-        {
           label: "Actions",
           field: "actions",
           width: 100,
@@ -169,7 +164,6 @@ const SoldStocks = () => {
             acquired: stock.dealers_price,
             expiry: formatDate(stock.expiry_date),
             dateSold: formatDate(stock?.dateSold || new Date()),
-            archived: stock?.isArchived ? "Yes" : "No",
             actions: (
               <div className="btn-group" role="group">
                 {/* <button
