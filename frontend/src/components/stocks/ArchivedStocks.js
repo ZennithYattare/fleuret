@@ -112,6 +112,16 @@ const ArchivedStocks = () => {
           width: 100,
         },
         {
+          label: "Sold",
+          field: "sold",
+          width: 100,
+        },
+        {
+          label: "Expired",
+          field: "expired",
+          width: 100,
+        },
+        {
           label: "Reason",
           field: "reason",
           width: 100,
@@ -129,7 +139,6 @@ const ArchivedStocks = () => {
     stockList &&
       stockList.forEach((stock) => {
         if (stock.isArchived || stock.autoArchive) {
-
           data.rows.push({
             id: stock._id,
             name: stock.product?.name,
@@ -138,6 +147,8 @@ const ArchivedStocks = () => {
             selling: stock.product?.price,
             acquired: stock.dealers_price,
             expiry: formatDate(stock.expiry_date),
+            sold: stock?.isSold ? "Yes" : "No",
+            expired: stock?.isExpired ? "Yes" : "No",
             reason: stock?.archiveReason || (stock?.autoArchive && "Archived Product"),
             actions: (
               <div className="btn-group" role="group">
