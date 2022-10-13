@@ -1,5 +1,7 @@
+/** @format */
+
 module.exports = ({ link }) => {
-    return `<div style="width:100%!important;background-color:#ececec;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:HelveticaNeue,sans-serif">
+	return `<div style="width:100%!important;background-color:#ececec;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:HelveticaNeue,sans-serif">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ececec">
         <tbody>
             <tr style="border-collapse:collapse">
@@ -137,5 +139,5 @@ module.exports = ({ link }) => {
             </tr>
         </tbody>
     </table>
-</div>`
-}
+</div>`;
+};
